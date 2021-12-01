@@ -52,8 +52,23 @@ My family owns a cloathing business in nepal. It is not that big . I want to exp
 
 
 
-![shopping website](https://github.com/32-Adarsha/Images/blob/main/image/Home%20Screen.png))
+![shopping website](https://github.com/32-Adarsha/Images/blob/main/image/Home%20Screen.png)
 
+
+`Signup preview`
+
+It create user . If user already exist or input fail to validate it shows error just below the input 
+![signup](https://github.com/32-Adarsha/Images/blob/main/image/signup-final.gif)
+
+`Setting preview`
+
+This page can be used to change user profile 
+![signup](https://github.com/32-Adarsha/Images/blob/main/image/setting%20(1).gif)
+
+`Cart preview`
+
+Cart get updated each time the `add to cart` is clicked . Multiple click on same card increases quantity
+![signup](https://github.com/32-Adarsha/Images/blob/main/chage_cart.gif)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
