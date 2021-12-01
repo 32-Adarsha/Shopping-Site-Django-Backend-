@@ -1,0 +1,161 @@
+{% extends 'app1/base.html'%}
+{% load static%}
+{% block content%}
+{% if setting %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">
+          <img src="{% static '/image/logo.png' %}" width="35" height="35" alt="img">
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/home/" class="nav-item nav-link active text-center text-light rounded mt-1 ml-1">Home</a>
+                <a href="/setting/" class="nav-item nav-link text-center text-light rounded mt-1 ml-1">Profile</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle text-center text-light rounded mt-1 ml-1" data-bs-toggle="dropdown">Your Store</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Add New Item</a>
+                        <a href="#" class="dropdown-item">Delete Existing Item</a>
+                        <a href="#" class="dropdown-item">View Item</a>
+                    </div>
+                </div>
+            </div>
+          {% if request.user.is_authenticated %}
+            <div class="navbar-nav dropdown">
+              <a href="#" class="nav-item nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <img src="{{request.user.userprofile.pic.url}}" alt="" width="45px" height="45px" class="rounded-circle">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a href="#" class='dropdown-item'><img src="{{request.user.userprofile.pic.url}}" alt="" width="70px" height="70px" class="rounded-circle mx-5"></a>
+                <a href="#" class='dropdown-item text-center'>@{{request.user.username}}</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">User History</h6>
+                <a href="#" class="dropdown-item">Cart</a>
+                <a href="#" class="dropdown-item">Wish List</a>
+                <a href="#" class="dropdown-item">Inspection</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Setting</h6>
+                <a href="{% url 'app1:setting'%}" class="dropdown-item">Profile Setting</a>
+                <a href="#" class="dropdown-item">Privacy & Policy</a>
+                <a href="#" class="dropdown-item">User Store</a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'app1:logout' %}" class="dropdown-item">Logout</a>
+            </div>
+            </div>
+          {%else%}
+            <div class="navbar-nav">
+                <a href="{% url 'app1:login'%}" class="nav-item nav-link">Login</a>
+            </div>
+          {%endif%}
+        </div>
+    </div>
+  </nav>
+
+
+
+
+<div class="container">
+        {% csrf_token %}
+        <div class="container-fluid d-flex flex-row jutstify-content-start mt-5 rounded" style="outline: 1px solid grey; outline-offset: 10px;">
+            <img src="{{request.user.userprofile.pic.url}}" alt="img" width="150px" height="150px" class="rounded">
+            <div class="container bg-light mx-3 rounded">
+                <h3 class="header">@{{userdata.username}}</h3>
+                <div class="container">
+                    <small>{{request.user.userprofile.bio}}</small>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+
+            
+            <div class="col-3">
+                <div class="container-fluid">
+                    <button style="width: 100%;height:40px;" class="rounded bg-dark border text-light" id='general'>General</button>
+                    <button style="width: 100%;height:40px;" class="rounded bg-dark border text-light" id="usersetting">User Setting</button>
+                    <button style="width: 100%;height:40px;" class="rounded bg-dark border text-light" id='profilepic'>Profile Pic</button>
+                    <button style="width: 100%;height:40px;" class="rounded bg-dark border text-light" id='change_password'>Change Password</button>
+                </div>
+            </div>
+            <div class="col-8 bg-light">
+                <div class="container-fluid">
+                    
+                    <div class="container-fluid" id="general-view">
+                        <h3 class="header">ABOUT</h3>
+                    <div class="container">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, temporibus. Hic temporibus rem laborum non voluptas distinctio asperiores. Officiis atque pariatur recusandae vitae architecto, obcaecati quia mollitia quam tempore officia?</p>
+                    </div>
+                        <form action="" method="POST">
+                            {%csrf_token%}
+                            <div class="form-group">
+                                <label for="id_username">Username:</label>
+                                {{setting.username}}
+                                <small class='text-danger'>{{setting.errors.username}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_first_name">First Name:</label>
+                                {{setting.first_name}}
+                                <small class='text-danger'>{{setting.errors.first_name}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_first_name">Last Name:</label>
+                                {{setting.last_name}}
+                                <small class='text-danger'>{{setting.errors.last_name}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_email">Email:</label>
+                                {{setting.email}}
+                                <small class='text-danger'>{{setting.errors.email}}</small>
+                            </div>
+                            <button type="submit" class="btn btn-default bg-dark text-light btn-block">Submit</button>
+                            </form>
+                    </div>
+                    <div class="container-fluid" id="usersetting-view"> 
+                        <form action="{% url 'app1:usersentdata'%}" method="POST">
+                            {% csrf_token%}
+                            <div class="form-group">
+                                <label for="id_company_name">Bio</label>
+                                {{userprofile.bio}}
+                            </div>
+                            <button type="submit" class="btn btn-default bg-dark text-light btn-block">Submit</button>
+                        </form>
+                    </div>
+                    <div class="container-fluid" id="profilepic-view">
+                        <form action="/profilepic/" method="GET" enctype="multipart/form-data">
+                            <div class="form-group mt-3">
+                            {{pic}}
+                            <button type="submit" class="btn btn-block btn-primary mt-3">submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="container-fluid" id="password-view">
+                        <h3 class="header mt-5">Change Password</h3>
+                        <div class="container">
+                            <form action="/passvalidation/" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="id_password1">password</label>
+                                    <input type="password" name="password1" id="id_password1" class="form-control validatepass">
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_password2">Re_password</label>
+                                    <input type="password" name="password2" id="id_password2" class="form-control validatepass">
+                                </div>
+                                <button type="submit" class="btn btn-dark btn-block mb-5 submitpassword">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="{% static '/javascript/setting.js'%}"></script>
+{% endif %}
+
+{% endblock %}

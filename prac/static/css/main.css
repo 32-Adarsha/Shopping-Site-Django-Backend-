@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+}
+.zoom:hover{
+    animation-name: zooming;
+    animation-duration: 0.2s;
+    animation-fill-mode:both;
+}
+
+@keyframes zooming {
+    100%{transform: scale(1.02);}
+}
+#usersetting-view {
+    display:none;
+}
+
+#profilepic-view {
+    display: none;
+}
+#password-view{
+    display: none;
+}
+

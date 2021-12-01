@@ -1,0 +1,43 @@
+{% extends "app1/base.html" %}
+{% load static%}
+{% block content %}
+
+<div class="container-fluid text-white ">
+    <div class="d-flex flex-column justify-content-center align-items-center m-lg-5 m-md-5">
+     <form action="" method="POST" class="col-sm-12 col-md-8 col-lg-6 bg-dark rounded p-5">
+         {% csrf_token %}
+             <div class="col-12">
+                 <h3 class="text-center" >SignIn</h3>
+             </div>
+             <div class="row justify-content-md-center">
+                 <div class="col-12">
+                     <div class="form-group">
+                         <label for="id_username">Username</label>
+                         <input type="text" name="username" id="id_username" >
+                         <small class='text-info'>Type you username</small>
+                     </div>
+                 </div>
+             </div>
+             <div class="row justify-content-md-center">
+                 <div class="col-12">
+                 <div class="form-group">
+                    <label for="id_password">Email</label>
+                    <input type="password" class='form-control' name="password" id="id_password">
+                    <small class='text-info'>Type in you password </small>
+                 </div>
+             </div>
+             </div>
+             <div class="row justify-content-md-center">
+                 <div class="col-12">              
+                     <div class="form-group ">
+                     <input type="submit" value="submit" class="btn btn-primary">
+                     <span class="float-right"><a href="{% url 'app1:signup' %}"><small>I am a new user</small></a></span>
+                 </div>
+             </div>
+         </div>
+     </form>
+     </div>
+ </div>
+ <script src='{% static "/javascript/main.js" %}'></script>
+
+{% endblock %}

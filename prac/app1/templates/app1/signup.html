@@ -1,0 +1,64 @@
+{% extends 'app1/base.html' %}
+{% load static %}
+    {% block content %}
+    {% if form %}
+    <style>
+    </style>
+    <div class="container-fluid text-white ">
+        <div class="d-flex flex-column justify-content-center align-items-center m-lg-5 m-md-5">
+            <form action="" method="POST" class="col-sm-12 bg-dark col-md-8 col-lg-6 rounded p-5" style="outline: 1px solid white; outline-offset: 5px; background-color: rgba(83, 90, 95, 0.37);">
+                {% csrf_token %}
+                    <div class="col-12">
+                        <h3 class="text-center text-light">SIGHUP</h3>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-12">
+                            <div class="form-group ">
+                                <label for="id_username">Username</label>
+                                {{form.username}}
+                                <small class='text-danger'>{{form.username.errors}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-12">
+                        <div class="form-group ">
+                            <label for="id_email">Email</label>
+                            {{form.email}}
+                            <small class='text-danger'>{{form.email.errors}}</small>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-12">
+                        <div class="form-group ">
+                            <label for="id_password1">Password</label>
+                            {{form.password1}}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-12">
+                        <div class="form-group ">
+                            <label for="id_password2">Verify Password</label>
+                            {{form.password2}} 
+                            <small class='text-danger'>{{form.password2.errors}}</small>
+                        </div> 
+                    </div> 
+                    </div>  
+                    <div class="row justify-content-md-center">
+                        <div class="col-12">              
+                            <div class="form-group ">
+                            <input type="submit" value="submit" class="btn btn-primary">
+                            <span class="float-right"><a href="{% url 'app1:login' %}"><small>I already a registed user</small></a></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        <script src='{% static "/javascript/main.js" %}?{% now "U" %}'></script>
+    
+    {% endif %}
+{% endblock %}

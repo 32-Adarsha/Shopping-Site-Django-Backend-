@@ -1,0 +1,269 @@
+{% extends 'app1/base.html'%}
+{% block content %}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+  <div class="container-fluid">
+      <a href="#" class="navbar-brand">
+        <img src="{% static '/image/logo.png' %}" width="35" height="35" alt="img">
+      </a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+          <div class="navbar-nav">
+              <a href="/home/" class="nav-item nav-link active text-center text-light rounded mt-1 ml-1">Home</a>
+              <a href="/setting/" class="nav-item nav-link text-center text-light rounded mt-1 ml-1">Profile</a>
+              <div class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle text-center text-light rounded mt-1 ml-1" data-bs-toggle="dropdown">Your Store</a>
+                  <div class="dropdown-menu">
+                      <a href="#" class="dropdown-item">Add New Item</a>
+                      <a href="#" class="dropdown-item">Delete Existing Item</a>
+                      <a href="#" class="dropdown-item">View Item</a>
+                  </div>
+              </div>
+          </div>
+        {% if request.user.is_authenticated %}
+          <div class="navbar-nav dropdown">
+            <a href="#" class="nav-item nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <img src="{{request.user.userprofile.pic.url}}" alt="" width="45px" height="45px" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="#" class='dropdown-item'><img src="{{request.user.userprofile.pic.url}}" alt="" width="70px" height="70px" class="rounded-circle mx-5"></a>
+              <a href="#" class='dropdown-item text-center'>@{{request.user.username}}</a>
+              <div class="dropdown-divider"></div>
+              <h6 class="dropdown-header">User History</h6>
+              <a href="{% url 'app1:cart'%}" class="dropdown-item">Cart</a>
+              <a href="#" class="dropdown-item">Wish List</a>
+              <a href="#" class="dropdown-item">Inspection</a>
+              <div class="dropdown-divider"></div>
+              <h6 class="dropdown-header">Setting</h6>
+              <a href="{% url 'app1:setting'%}" class="dropdown-item">Profile Setting</a>
+              <a href="#" class="dropdown-item">Privacy & Policy</a>
+              <a href="#" class="dropdown-item">User Store</a>
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'app1:logout' %}" class="dropdown-item">Logout</a>
+          </div>
+          </div>
+        {%else%}
+          <div class="navbar-nav">
+              <a href="{% url 'app1:login'%}" class="nav-item nav-link">Login</a>
+          </div>
+        {%endif%}
+      </div>
+  </div>
+</nav>
+
+
+<!--  Body starts from here ! -->
+
+
+
+
+<div class="container-fluid mt-5">
+  <div class="row">
+
+
+    <!-- side bar for search-->
+
+    <div class="col-sm-12 col-md-4 col-lg-2">
+      <div class="container bg-light text-dark border rounded">
+        <form action="" class="">
+          <div class="header  mt-3"><h4>Filter</h4></div>
+          <div class="row">
+            <div class="col-12">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="submit" class="btn btn-secondary"><i class="bi-search"></i></button>
+            </div>
+            </div>
+          </div>
+          <div class="row ml-3 mt-1">
+            <h6 class="header">Gender</h6>
+            <div class="col-12 ">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="female">
+                  <label class="form-check-label" for="female">
+                    Female
+                  </label>
+                </div>
+          </div>
+          </div>
+          <div class="row ml-3 mt-1">
+            <h6 class="header">Size</h6>
+            <div class="col-12 ">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Infant">
+                  <label class="form-check-label" for="Infant">
+                    Infant
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Small">
+                  <label class="form-check-label" for="Small">
+                    Small
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Medium">
+                  <label class="form-check-label" for="Medium">
+                    Medium
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Large">
+                  <label class="form-check-label" for="Large">
+                    Large
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="XL">
+                  <label class="form-check-label" for="XL">
+                    Xl
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="XXL">
+                  <label class="form-check-label" for="XXL">
+                    XXl
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="XXXL">
+                  <label class="form-check-label" for="XXXL">
+                    XXXl
+                  </label>
+                </div>
+          </div>
+          </div>
+          <div class="row ml-3 mt-1">
+            <h6 class="header">Cloath Type</h6>
+            <div class="col-12 ">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Innerwear">
+                  <label class="form-check-label" for="Innerwear">
+                    Innerwears
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="HeadWear">
+                  <label class="form-check-label" for="HeadWear">
+                    Head Wears
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="BodyWear">
+                  <label class="form-check-label" for="BodyWear">
+                    BodyWears
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="LegsWears">
+                  <label class="form-check-label" for="LegsWears">
+                    LeagsWears
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="FootWears">
+                  <label class="form-check-label" for="FootWears">
+                    FootWears
+                  </label>
+                </div>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+<!--  This is content ! -->
+
+
+
+    <div class="col-sm-12 col-md-8 col-lg-8">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active border-0 bg-primary mx-3" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="border-0 bg-primary mx-3" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="border-0 bg-primary mx-3" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static '/image/img1.jpg'%}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>@TheJeansFactory</h5>
+              <p>The Fashion of new Generation</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static '/image/img2.jpg'%}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static '/image/img3.jpg'%}" class="d-block w-100 h-80" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev bg-transparent border-0" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next bg-transparent border-0" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+        <div class="row d-flex flex-row mt-5">
+          {% for items in item%}
+          <div class="col-lg-3 col-sm-4 col-md-4 mt-2">
+            <div class="card mt-3 zoom" style="height: 500px; outline: 1px solid black; outline-offset: 5px;">
+              <a href="{% url 'app1:bigview' items.id%}"><img src="{{items.pic.url}}" class="card-img-top" alt="..." height="250px" style="object-fit:cover"></a>
+              <div class="card-body">
+                <h5 class="card-title">{{items.item_name}}</h5>
+                <p class="card-text bg-light"  >{{items.item_detail}}</p>
+                <button class="border border-danger rounded bg-light" style="width: 100%; height: 40px;">${{items.price}}</button>
+              </div>
+              <div class="card-footer d-flex flex-row justify-content-between">
+                <button class='rounded border bg-dark text-light' style='width:75px; height: 40px;'>Buy</button>
+                <button class="rounded border bg-dark text-light addtocart" value="{{items.id}}" style="width: 150px;height: 40px;"><i class="bi bi-cart"></i>  Add To Cart</button>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="col-sm-12 col-md-12 col-lg-2">
+      <div class="container bg-danger text-light">
+        Here goes the ad staff
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<a href="/cart/"><div class="bg-danger rounded-circle text-center zoom" style="position: fixed; bottom: 5px; right: 5px; width: 50px;">
+  <div style="position: absolute; width: 30px; height: 30px; font-weight: bold; right: -5px; top:-10px;" class="bg-dark text-white rounded-circle cart-count">{{cart_count}}</div>
+  <i class="bi bi-cart" style="line-height: 50px;"></i>
+  
+</div></a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src='{% static "/javascript/home.js"%}'></script>
+{% endblock %}
